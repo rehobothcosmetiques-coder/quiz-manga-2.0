@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Manga 🔥</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .quiz-box {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #38bdf8;
+            color: black;
+        }
+
+        button:hover {
+            background: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎌 Quiz Manga</h1>
+
+    <div class="quiz-box">
+        <h2 id="question">Question</h2>
+
+        <button onclick="checkAnswer(0)" id="btn0"></button>
+        <button onclick="checkAnswer(1)" id="btn1"></button>
+        <button onclick="checkAnswer(2)" id="btn2"></button>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        let questions = [
+            {
+                q: "Qui est le héros de Naruto ?",
+                answers: ["Sasuke", "Naruto", "Luffy"],
+                correct: 1
+            },
+            {
+                q: "Dans One Piece, qui est le capitaine ?",
+                answers: ["Zoro", "Sanji", "Luffy"],
+                correct: 2
+            },
+            {
+                q: "Quel anime parle des Titans ?",
+                answers: ["Bleach", "Attack on Titan", "Dragon Ball"],
+                correct: 1
+            }
+        ];
+
+        let current = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            document.getElementById("question").innerText = questions[current].q;
+            document.getElementById("btn0").innerText = questions[current].answers[0];
+            document.getElementById("btn1").innerText = questions[current].answers[1];
+            document.getElementById("btn2").innerText = questions[current].answers[2];
+        }
+
+        function checkAnswer(choice) {
+            if (choice === questions[current].correct) {
+                score++;
+                document.getElementById("result").innerText = "✅ Bonne réponse !";
+            } else {
+                document.getElementById("result").innerText = "❌ Mauvaise réponse !";
+            }
+
+            current++;
+
+            if (current < questions.length) {
+                setTimeout(() => {
+                    document.getElementById("result").innerText = "";
+                    loadQuestion();
+                }, 1000);
+            } else {
+                document.querySelector(".quiz-box").innerHTML =
+                    "<h2>🎉 Quiz terminé !</h2><p>Score : " + score + "/" + questions.length + "</p>";
+            }
+        }
+
+        loadQuestion();
+    </script>
+
+</body>
+</html>
